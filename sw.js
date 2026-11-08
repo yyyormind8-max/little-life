@@ -1,5 +1,5 @@
 // Кеш для быстрого повторного запуска и игры без сети. Файлы с ?v= неизменны, поэтому берём из кеша.
-const CACHE='little-life-v63';
+const CACHE='little-life-v64';
 self.addEventListener('install',e=>{self.skipWaiting()});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
 self.addEventListener('fetch',e=>{const req=e.request;if(req.method!=='GET'||new URL(req.url).origin!==location.origin)return;

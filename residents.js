@@ -1,7 +1,7 @@
-import {available as socialAvailable,plan as socialPlanOf,apply as socialApply,CATEGORIES as socialCategories,scores as socialScores} from './social.js?v=63';
+import {available as socialAvailable,plan as socialPlanOf,apply as socialApply,CATEGORIES as socialCategories,scores as socialScores} from './social.js?v=64';
 import * as T from './vendor/three.module.js';
-import {createCharacter} from './character.js?v=63';
-import {createPet} from './pet-model.js?v=63';
+import {createCharacter} from './character.js?v=64';
+import {createPet} from './pet-model.js?v=64';
 const ageNames={child:'Ребёнок',teen:'Подросток',adult:'Взрослый',senior:'Пожилой'},relations={stranger:'Незнакомый / незнакомая',acquaintance:'Знакомый / знакомая',friend:'Друг',friend_f:'Подруга',brother:'Брат',sister:'Сестра',husband:'Муж',wife:'Жена',sweetheart:'Возлюбленный / возлюбленная'};
 export function initResidents({scene,state,getActive,setActive,profileEditor,newProfile,save,toast,canAct,canSwitch=null,parkTask=()=>null,getTask,getGround,getPetSpot=()=>null,findFree=p=>p,getPetPath=(a,b)=>[b],onPetAction,isHidden}){
 const rigs=new Map(),pets=new Map(),petPlans=new Map();let adding=false,selectedPet=null,happyUntil=0;
