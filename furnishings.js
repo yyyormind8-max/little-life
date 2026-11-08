@@ -1,5 +1,5 @@
 import * as T from './vendor/three.module.js';
-import {surfaceMaterial} from './surfaces.js?v=64';
+import {surfaceMaterial} from './surfaces.js?v=65';
 export const catalog={room:{name:'Комната 4×4',icon:'▣',price:164,w:4,d:4,kind:'room'},floor:{name:'Напольное покрытие',icon:'▦',price:4,w:1,d:1,kind:'floor'},tile:{name:'Плитка',icon:'◫',price:5,w:1,d:1,kind:'floor'},wall:{name:'Стена',icon:'▰',price:6,w:1,d:1,kind:'wall'},window:{name:'Стена с окном',icon:'⊞',price:14,w:1,d:1,kind:'wall'},door:{name:'Дверной проём',icon:'🚪',price:10,w:1,d:1,kind:'wall'}};
 for(const [id,name,color,w,glass] of [['door_oak','Дверь · дуб','#aa8056',1,false],['door_white','Дверь · белая','#e7e3d8',1,false],['door_glass','Дверь · стеклянная','#57676a',1,true],['door_double_oak','Двойные двери · дуб','#986f4d',2,false],['door_double_glass','Двойные двери · стекло','#61787b',2,true]])catalog[id]={name,color,w,d:1,glass,family:'door',kind:'wall',icon:'🚪',price:w===2?65:glass?40:30};
 for(const [id,name,color,family,variant] of [['tv','Телевизор · на тумбе','#645442','tv',0],['tv_white','Телевизор · белая тумба','#d9d8ca','tv',1],['speaker','Колонка · деревянная','#98744e','speaker',0],['speaker_black','Колонка · чёрная','#394248','speaker',1]])catalog[id]={name,color,family,variant,kind:'furniture',icon:family==='tv'?'📺':'🔊',w:family==='tv'?2:1,d:1,category:'electronics',menu:family,price:family==='tv'?130:65};
@@ -14,7 +14,8 @@ for(const c of Object.values(catalog))if(c.family==='plant')c.outdoor=true;catal
 // Редкие предметы: открываются достижениями.
 catalog.gnome={family:'gnome',name:'Садовый гном · награда',color:'#c0392b',icon:'🧙',price:30,w:1,d:1,kind:'furniture',category:'garden',outdoor:true,locked:true,variant:0};catalog.trophy={family:'trophy',name:'Золотой кубок · награда',color:'#d4a838',icon:'🏆',price:60,w:1,d:1,kind:'furniture',category:'decor',locked:true,variant:0};catalog.trophy_home={family:'trophy',name:'Кубок «Архитектор года» · награда',color:'#b8763e',icon:'🏆',price:60,w:1,d:1,kind:'furniture',category:'decor',locked:true,variant:0};catalog.trophy_pet={family:'trophy',name:'Кубок «Лучший питомец» · награда',color:'#c9cdd2',icon:'🏅',price:60,w:1,d:1,kind:'furniture',category:'pets',locked:true,variant:1};
 catalog.table_coffee.supports=.5;
-for(const item of Object.values(catalog))item.price=Math.max(150,item.price*40+100);
+// Цены v64: стройка дешевле, чтобы на стартовые деньги хватало и на дом, и на первую мебель.
+for(const item of Object.values(catalog))item.price=['floor','wall','room'].includes(item.kind)?Math.max(50,Math.round(item.price*15/10)*10):Math.max(100,Math.round((item.price*20+50)/10)*10);
 export function dimensions(item){const c=catalog[item.type];return item.rot%2?[c.d,c.w]:[c.w,c.d]}
 export function center(item){const [w,d]=dimensions(item);return {x:-5+item.x+w/2,z:-4+item.z+d/2}}
 export function transform(item,x,z){const p=center(item),a=(item.angle??item.rot*90)*Math.PI/180;return {x:p.x+Math.cos(a)*x+Math.sin(a)*z,z:p.z-Math.sin(a)*x+Math.cos(a)*z}}

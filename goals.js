@@ -33,7 +33,7 @@ export const ACHIEVEMENTS=[
   {id:'fountain',icon:'⛲',title:'Как в парке',text:'Поставить фонтан и лавочку во дворе',reward:1000},
   {id:'architect',icon:'📐',title:'Архитектор',text:'Дом площадью 60 клеток с крышей',reward:5000,item:'trophy'},
   {id:'mansion',icon:'🏰',title:'Особняк',text:'Дом площадью 100 клеток',reward:5000,item:'trophy_home'},
-  {id:'dreamhome',icon:'✨',title:'Дом мечты',text:'Обставить дом мебелью на 50 000 монет',reward:5000},
+  {id:'dreamhome',icon:'✨',title:'Дом мечты',text:'Обставить дом мебелью на 25 000 монет',reward:5000},
   {id:'week',icon:'📅',title:'Неделя жизни',text:'Прожить 7 игровых дней',reward:5000,item:'trophy_pet'}
 ];
 const ITEM_NAMES={gnome:'Садовый гном',trophy:'Золотой кубок',trophy_pet:'Кубок «Лучший питомец»',trophy_home:'Кубок «Архитектор года»'};
@@ -52,7 +52,7 @@ export function initGoals({state,save,toast,catalog,onReward}){
     const friends=new Set(rel.filter(([k,v])=>['friend','friend_f'].includes(v)).map(([k])=>k.split('|').sort().join('|'))).size,love=rel.some(([k,v])=>['sweetheart','husband','wife'].includes(v));
     const fam=f=>items.filter(i=>catalog[i.type]?.family===f).length,furn=items.filter(i=>catalog[i.type]?.kind==='furniture'&&!catalog[i.type]?.outdoor),patterns=new Set(items.filter(i=>catalog[i.type]?.kind==='floor').map(i=>(i.style?.pattern)||(i.type==='tile'?'tile':'planks'))).size,value=items.filter(i=>catalog[i.type]?.kind==='furniture').reduce((a,i)=>a+(catalog[i.type]?.price||0),0);
     return {fam,furn:furn.length,patterns,value,floors,garden,friends,love,roof:state.customHouse?.roof&&state.customHouse.roof.style!=='none',pets:(state.pets||[]).length}}
-  function check(){const s=stats(),c=g.count,test={newhome:s.floors>0&&state.homeConfigured,firstpet:s.pets>=1,chef:(c.cook||0)>=5,early:(c.early||0)>=1,friend3:s.friends>=3,love:s.love,gardener:s.garden>=10,worker:(c.earned||0)>=10000,petfriend:(c.pet||0)>=20,pack:s.pets>=3,tricks5:(c.trick||0)>=5,shelter:(c.adopt||0)>=1,architect:s.floors>=60&&s.roof,week:day()>=8,roof:s.floors>0&&s.roof,kitchen:(s.fam('stove')>0||s.fam('kitchen')>0)&&s.fam('fridge')>0,cozy:s.furn>=15,expand:s.floors>=32,designer:s.patterns>=5,fenced:s.fam('fence')>=10,fountain:s.fam('fountain')>0&&s.fam('bench')>0,mansion:s.floors>=100,dreamhome:s.value>=50000};
+  function check(){const s=stats(),c=g.count,test={newhome:s.floors>0&&state.homeConfigured,firstpet:s.pets>=1,chef:(c.cook||0)>=5,early:(c.early||0)>=1,friend3:s.friends>=3,love:s.love,gardener:s.garden>=10,worker:(c.earned||0)>=10000,petfriend:(c.pet||0)>=20,pack:s.pets>=3,tricks5:(c.trick||0)>=5,shelter:(c.adopt||0)>=1,architect:s.floors>=60&&s.roof,week:day()>=8,roof:s.floors>0&&s.roof,kitchen:(s.fam('stove')>0||s.fam('kitchen')>0)&&s.fam('fridge')>0,cozy:s.furn>=15,expand:s.floors>=32,designer:s.patterns>=5,fenced:s.fam('fence')>=10,fountain:s.fam('fountain')>0&&s.fam('bench')>0,mansion:s.floors>=100,dreamhome:s.value>=25000};
     for(const a of ACHIEVEMENTS)if(!g.unlocked[a.id]&&test[a.id]){g.unlocked[a.id]=day();give(a.reward,'🏆 Достижение «'+a.title+'»!',a.item)}}
   // Окно «Задания и достижения».
   const dlg=document.createElement('dialog');dlg.id='goalsDialog';document.body.append(dlg);

@@ -1,7 +1,7 @@
-import {snapChair} from './chair-snap.js?v=64';
+import {snapChair} from './chair-snap.js?v=65';
 import * as T from './vendor/three.module.js';
-import {catalog,makeFurniture,dimensions,center,transform,wallSegment} from './furnishings.js?v=64';
-import {floorPatterns,wallPatterns,surfaceMaterial} from './surfaces.js?v=64';
+import {catalog,makeFurniture,dimensions,center,transform,wallSegment} from './furnishings.js?v=65';
+import {floorPatterns,wallPatterns,surfaceMaterial} from './surfaces.js?v=65';
 const sameCell=(a,b)=>a.x===b.x&&a.z===b.z;
 const overlap=(a,b)=>{const [w,d]=dimensions(a),[ww,dd]=dimensions(b);return a.x<b.x+ww&&a.x+w>b.x&&a.z<b.z+dd&&a.z+d>b.z};
 function crossing(a,b,c,d){const cross=(p,q,r)=>(q.x-p.x)*(r.z-p.z)-(q.z-p.z)*(r.x-p.x);return cross(a,b,c)*cross(a,b,d)<=0&&cross(c,d,a)*cross(c,d,b)<=0&&Math.max(Math.min(a.x,b.x),Math.min(c.x,d.x))<=Math.min(Math.max(a.x,b.x),Math.max(c.x,d.x))+.001&&Math.max(Math.min(a.z,b.z),Math.min(c.z,d.z))<=Math.min(Math.max(a.z,b.z),Math.max(c.z,d.z))+.001}

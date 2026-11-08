@@ -1,1 +1,1 @@
-export {createCharacter} from './human-model.js?v=64';
+export {createCharacter} from './human-model.js?v=65';
